@@ -73,6 +73,8 @@ def logout():
 @app.route("/Profile/",methods=["GET","POST"])
 def profile():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	if user_data[-1] == "Guest":
 		return redirect(url_for('login', _method = 'POST',usr_dat = user_data))
 	return render_template("profile.html",usr_dat= user_data)
@@ -80,6 +82,9 @@ def profile():
 @app.route("/signup/",methods =["GET","POST"])
 def signup():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
+		return redirect(url_for('index'))
 	if request.method == "POST":
 		user_name = request.form["user_name"]
 		passwd = request.form["passwd"]
@@ -115,6 +120,8 @@ def signup():
 @app.route('/asknow/<uid>')
 def asknow(uid):
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	if request.method == 'POST':
 		question = request.form['question']
 	else:
@@ -142,6 +149,8 @@ def asknow(uid):
 @app.route("/Dashboard",methods =["GET","POST"])
 def dashboard():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("dashboard.html",usr_dat=user_data )
 
 @app.route("/answer/<qid>")
@@ -153,43 +162,59 @@ def answer(qid):
 @app.route("/ComputerScience/")
 def ComputerScience():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("ComputerScience.html",usr_dat=user_data)
 
 @app.route("/InformationTechnology/")
 def InformationTechnology():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("InformationTechnology.html",usr_dat=user_data)
 
 
 @app.route("/CivilEngineering/")
 def CivilEngineering():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("CivilEngineering.html",usr_dat=user_data)
 
 
 @app.route("/MechanicalEngineering/")
 def MechanicalEngineering():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("MechanicalEngineering.html",usr_dat=user_data)
 
 @app.route("/ElectricalEngineering/")
 def ElectricalEngineering():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("ElectricalEngineering.html",usr_dat=user_data)
 
 @app.route("/Electronics/")
 def Electronics():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("Electronics.html",usr_dat = user_data)
 
 @app.route("/Question/<hashid>")
 def Question(hashid):
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	return render_template("QuestionView.html",qid = hashid,usr_dat = user_data)
 
 @app.route("/notify/<qid>/<usrid>")
 def notify():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	user_data[0][usrid]['notification'].append(qid)
 	global user_json,question_json
 	user_json.close()
