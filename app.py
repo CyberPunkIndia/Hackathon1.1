@@ -141,6 +141,7 @@ def asknow(uid):
 
 @app.route("/Dashboard",methods =["GET","POST"])
 def dashboard():
+	global user_data
 	return render_template("dashboard.html",usr_dat=user_data )
 
 @app.route("/answer/<qid>")
@@ -151,28 +152,34 @@ def answer(qid):
 
 @app.route("/ComputerScience/")
 def ComputerScience():
+	global user_data
 	return render_template("ComputerScience.html",usr_dat=user_data)
 
 @app.route("/InformationTechnology/")
 def InformationTechnology():
+	global user_data
 	return render_template("InformationTechnology.html",usr_dat=user_data)
 
 
 @app.route("/CivilEngineering/")
 def CivilEngineering():
+	global user_data
 	return render_template("CivilEngineering.html",usr_dat=user_data)
 
 
 @app.route("/MechanicalEngineering/")
 def MechanicalEngineering():
+	global user_data
 	return render_template("MechanicalEngineering.html",usr_dat=user_data)
 
 @app.route("/ElectricalEngineering/")
 def ElectricalEngineering():
+	global user_data
 	return render_template("ElectricalEngineering.html",usr_dat=user_data)
 
 @app.route("/Electronics/")
 def Electronics():
+	global user_data
 	return render_template("Electronics.html",usr_dat = user_data)
 
 @app.route("/Question/<hashid>")
