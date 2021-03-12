@@ -66,17 +66,17 @@ def login():
 def logout():
 	global user_data
 	user_data[-1] = "Guest"
-	session.pop('user',None)
+	session.pop('user')
 	return redirect(url_for('index'))
 
 
 @app.route("/Profile/",methods=["GET","POST"])
 def profile():
 	global user_data
+	if user_data[-1] == "Guest":
+		return redirect(url_for('login'))
 	if 'user' in session:
 		user_data[-1] = session['user']
-	if user_data[-1] == "Guest":
-		return redirect(url_for('login', _method = 'POST',usr_dat = user_data))
 	return render_template("profile.html",usr_dat= user_data)
 
 @app.route("/signup/",methods =["GET","POST"])
