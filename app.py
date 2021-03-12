@@ -31,6 +31,8 @@ app.add_template_global(lambda : redirect(url_for('index')), name='index')
 
 @app.route("/login/",methods =["GET","POST"])
 def login():
+	if 'user' in session:
+		return redirect(url_for('profile'))
 	global user_data
 	formed ,usrd = None,None
 	try:
@@ -47,6 +49,7 @@ def login():
 				return render_template("login.html",usr_dat = user_data)
 			if usr in user_data[0] and passwd == user_data[0][usr]["password"]:
 				user_data[-1] = usr 
+				session['user'] = usr 
 				return redirect(url_for("profile"))
 			return redirect(url_for("index"))
 			user_data[-1] = "Guest"
@@ -58,6 +61,7 @@ def login():
 @app.route("/logout")
 def logout():
 	user_data[-1] = "Guest"
+	session.pop('user',None)
 	return redirect(url_for('index'))
 
 
