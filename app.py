@@ -65,6 +65,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+	global user_data
 	user_data[-1] = "Guest"
 	session.pop('user',None)
 	return redirect(url_for('index'))
