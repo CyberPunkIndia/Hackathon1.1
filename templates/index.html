@@ -14,39 +14,45 @@
 	<script type="text/javascript">
 		let btn = document.getElementById('btn');
 		{% if usr_dat[-1] == "Guest" %}
-									btn.innerHTML = "Login Now";
-									function handler(argument) {
-										window.location.assign("{{url_for('login')}}");
-									}
+				btn.innerHTML = "Login Now";
+				function handler(argument) {
+				window.location.assign("{{url_for('login')}}");
+				}
 		{% else %}
-								function handler (argument) {
-								{% if usr_dat[0][usr_dat[-1]]['user_type'] == 'student' %}
-																window.location.assign("{{url_for('asknow',uid = usr_dat[-1])}}")
-								{% else %}
-																window.location.assign("{{url_for('index')}}");
-							{% endif %}
-									}
-			{% endif %}
+				function handler (argument) {
+				{% if usr_dat[0][usr_dat[-1]]['user_type'] == 'student' %}
+										window.location.assign("{{url_for('asknow',uid = usr_dat[-1])}}")
+				{% else %}
+									window.location.assign("{{url_for('index')}}");
+				{% endif %}
+							}
+	{% endif %}
 	</script>
 </div>
 <div class="container mt-5">
 	<legend class="border border-success ">
 		<b>Recently asked Questions</b>
-		{% for question in usr_dat[1] %}
-			{% if usr_dat[1][question]['answered_by'] %}
-				<div class="card m-2">
-					<div class="card-header">
-						Answered
-					</div>
-					<div class="card-body">
-						<h5 class="card-title">{{ usr_dat[1][question]['question'] }}</h5>
-						<a href="{{ url_for('Question',hashid = question) }}" class="btn btn-primary text-center">Read Answer </a>
-						<p class="m-2">
-							<small>Branch : {{usr_dat[1][question]['branch'].upper()}}</small>
-						</p>
-					</div>
+		{% for qid in usr_dat[1] %}
+			<div class="card m-2">
+				<div class="card-body">
+					<h5 class="card-title">{{usr_dat[1][qid]["question"]}}</h5>
+					<p class="card-text">
+						<small class="text-muted">
+						Asked By : {{ usr_dat[0][usr_dat[1][qid]["asked_by"]]["user_name"]}},
+						{{usr_dat[1][qid]["qnstime"]}}
+						{% if usr_dat[1][qid]["answered_by"] == '' %}
+							<br>Not ansered Yet<br>
+						{% else %}
+							<br>
+							Answered By : {{usr_dat[0][usr_dat[1][qid]["answered_by"]]["user_name"] }}
+							({{ usr_dat[0][usr_dat[1][qid]["answered_by"]]["user_type"] }}),
+							{{usr_dat[1][qid]["anstime"]}} <br>
+							<a href="{{ url_for('Question',hashid = qid)}}" class="btn btn-primary text-center">Read Answer </a>
+						{% endif %}
+						</small>
+					</p>
 				</div>
-			{% endif %}
+			</div>
 		{% endfor %}
 	</legend>
 </div>

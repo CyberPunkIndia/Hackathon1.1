@@ -1,22 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class="container">
-		{% for data in usr_dat[1] %}
-			{% if usr_dat[1][data]['branch'] == 'electrical' %}
-				<div class="card m-3">
+		{% for qid in usr_dat[1] %}
+			{% if usr_dat[1][qid]['branch'] == 'electrical' %}
+				<div class="card m-2">
 					<div class="card-body">
-						<h5 class="card-title">{{usr_dat[1][data]['question']}}</h5>
-						<a href="{{url_for('Question',hashid = data)}}" class="btn btn-primary">Read Answer</a>
+						<h5 class="card-title">{{usr_dat[1][qid]["question"]}}</h5>
 						<p class="card-text">
 							<small class="text-muted">
-							Asked By : {{ usr_dat[0][usr_dat[1][data]["asked_by"]]["user_name"]}},
-							{% if usr_dat[1][data]["answered_by"] == '' %}
+							Asked By : {{ usr_dat[0][usr_dat[1][qid]["asked_by"]]["user_name"]}},
+							{{usr_dat[1][qid]["qnstime"]}}
+							{% if usr_dat[1][qid]["answered_by"] == '' %}
 								<br>Not ansered Yet<br>
 							{% else %}
-								({{ usr_dat[0][usr_dat[1][data]["answered_by"]]["user_type"] }}),
+								<br>
+								Answered By : {{usr_dat[0][usr_dat[1][qid]["answered_by"]]["user_name"] }}
+								({{ usr_dat[0][usr_dat[1][qid]["answered_by"]]["user_type"] }}),
+								{{usr_dat[1][qid]["anstime"]}} <br>
+								<a href="{{ url_for('Question',hashid = qid)}}" class="btn btn-primary text-center">Read Answer </a>
 							{% endif %}
-							{{usr_dat[1][data]["anstime"]}},
-							{{usr_dat[1][data]["qnstime"]}}
 							</small>
 						</p>
 					</div>
