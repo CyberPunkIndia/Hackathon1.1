@@ -8,8 +8,8 @@ from datetime import timedelta,datetime
 import json,hashlib
 
 
-user_json = json.load(open("json\\user.json"))
-question_json = json.load(open("json\\questions.json"))
+user_json = json.load(open("json/user.json"))
+question_json = json.load(open("json/questions.json"))
 
 user_data = [user_json,question_json,"Guest"]
 
@@ -90,10 +90,10 @@ def signup():
 		"question_asked" : [],
 		"notification" : []
 		}
-		file = open("json\\user.json",'w')
+		file = open("json/user.json",'w')
 		json.dump(user_data[0],file)
 		file.close()
-		user_data[0] = json.load(open('json\\user.json'))
+		user_data[0] = json.load(open('json/user.json'))
 		if user_type == 'student':
 			return redirect(url_for("index",usr_dat=user_data))
 		else:
@@ -120,7 +120,7 @@ def asknow():
 			if user_data[0][ids]['user_type'] == "HOD" and user_data[0][ids]['branch'] == user_data[user_data[-1]]["branch"]:
 				user_data[0][ids]['notification'].append(qid)
 				break
-		file = open('json\\questions.json','w')
+		file = open('json/questions.json','w')
 		json.dump(user_data[1],file)
 		file.close()
 		return redirect(url_for('profile'))
@@ -173,10 +173,10 @@ def notify():
 	user_data[0][usrid]['notification'].append(qid)
 	global user_json,question_json
 	user_json.close()
-	user_json = json.load(open("json\\user.json","w"))
+	user_json = json.load(open("json/user.json","w"))
 	json.dump(user_data[0],user_json)
 	user_json.close()
-	user_data[0] = json.load("json\\user.json")
+	user_data[0] = json.load("json/user.json")
 	return redirect(url_for("Dashboard"))
 
 
