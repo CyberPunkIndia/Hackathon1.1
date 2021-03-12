@@ -48,17 +48,18 @@
 		<script type="text/javascript">
 			let user_prf = document.getElementById("profile_id");
 			{% if usr_dat[-1] == "Guest" %}
-					user_prf.innerHTML = "Guest";
-					function profile_now(argument) {
-					window.location.assign('../login');
-					}
+						user_prf.innerHTML = "Guest";
+						usr_dat[-1]
+						function profile_now(argument) {
+						window.location.assign('../login');
+						}
 			{% else %}
-			user_prf.innerHTML = '@{{usr_dat[0][usr_dat[-1]]["user_name"]}}';
-			// let btn = document.getElementById("profile_id");
-			function profile_now(argument) {
-			document.getElementsByClassName("login_btn").method = "get";
-			window.location.assign('../Profile')
-			}
+				user_prf.innerHTML = '@{{usr_dat[0][usr_dat[-1]]["user_name"]}}';
+				// let btn = document.getElementById("profile_id");
+				function profile_now(argument) {
+				document.getElementsByClassName("login_btn").method = "get";
+				window.location.assign('../Profile')
+				}
 			{% endif %}
 		</script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
