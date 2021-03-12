@@ -66,7 +66,8 @@ def login():
 def logout():
 	global user_data
 	user_data[-1] = "Guest"
-	session.pop('user')
+	if 'user' in session:
+		session.pop('user')
 	return redirect(url_for('index'))
 
 
