@@ -18,11 +18,11 @@ app.secret_key = "DAJ7824RHEW742ORWIUYEH2OWIUERS"
 app.permanent_session_lifetime = timedelta(days=5)
 
 
-
-
 @app.route("/",methods =["GET","POST"])
 def index():
 	global user_data
+	if 'user' in session:
+		user_data[-1] = session['user']
 	if request.method == "POST" and user_data[-1] == "Guest":
 		return redirect(url_for('login'))
 	return render_template("index.html",usr_dat = user_data)
