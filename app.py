@@ -35,9 +35,9 @@ app.add_template_global(lambda : redirect(url_for('index')), name='index')
 
 @app.route("/login/",methods =["GET","POST"])
 def login():
-	if 'user' in session:
-		return redirect(url_for('profile'))
 	global user_data
+	if 'user' in session and user_data[-1] != Guest:
+		return redirect(url_for('profile'))
 	formed ,usrd = None,None
 	try:
 		formed = request.form["question"]
