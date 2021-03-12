@@ -23,8 +23,13 @@ def index():
 	global user_data
 	if 'user' in session:
 		user_data[-1] = session['user']
-	if request.method == "POST" and user_data[-1] == "Guest":
-		return redirect(url_for('login'))
+	if request.method == "POST":
+		if user_data[-1] == "Guest":
+			return redirect(url_for('login'))
+		else:
+			question = request.form["question"]
+			return redirect(url_for('asknow',uid = question))
+
 	return render_template("index.html",usr_dat = user_data)
 
 app.add_template_global(lambda : redirect(url_for('index')), name='index')
@@ -106,29 +111,31 @@ def signup():
 
 
 @app.route('/asknow/<uid>')
-def asknow():
+def asknow(uid):
 	global user_data
-	if request.methods == 'POST':
+	if request.method == 'POST':
 		question = request.form['question']
-		qid = hashlib.sha1(question.encode()).hexdigest()
-		user_data[1][qid] = {
-		"branch" : user_data[user_data[-1]]["branch"],
-		"asked_by" : user_data[-1],
-		"answered_by" : "",
-		"qnstime" : str(datetime.today()),
-		"anstime" : "",
-		"question" :question,
-		"answer" : ""
-		}
-		for ids in user_data[0]:
-			if user_data[0][ids]['user_type'] == "HOD" and user_data[0][ids]['branch'] == user_data[user_data[-1]]["branch"]:
-				user_data[0][ids]['notification'].append(qid)
-				break
-		file = open('json/questions.json','w')
-		json.dump(user_data[1],file)
-		file.close()
-		return redirect(url_for('profile'))
-	return redirect(url_for('login'))
+	else:
+		question = uid
+	uid = hashlib.sha1(uid.encode()).hexdigest()
+	user_data[1][uid] = {
+	"branch" : user_data[0][user_data[-1]]["branch"],
+	"asked_by" : user_data[-1],
+	"answered_by" : "",
+	"qnstime" : str(datetime.today()),
+	"anstime" : "",
+	"question" :question,
+	"answer" : ""
+	}
+	for ids in user_data[0]:
+		if user_data[0][ids]['user_type'] == "HOD" and user_data[0][ids]['branch'] == user_data[0][user_data[-1]]["branch"]:
+			user_data[0][ids]['notification'].append(uid)
+			user_data[0][user_data[-1]]['question_asked'].append(question)
+			break
+	file = open('json/questions.json','w')
+	json.dump(user_data[1],file)
+	file.close()
+	return redirect(url_for('profile'))
 
 @app.route("/Dashboard",methods =["GET","POST"])
 def dashboard():

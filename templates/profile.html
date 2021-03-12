@@ -141,11 +141,7 @@
 											<div class="col-sm-6">
 												<p class="m-b-10 f-w-600">Zender</p>
 												<h6 class="text-muted f-w-400">
-												{% if usr_dat[0][usr_dat[-1]]["Z"] == "M" %}
-													Male
-												{% else %}
-													Female
-												{% endif %}
+												{{ usr_dat[0][usr_dat[-1]]["zender"] }}
 												</h6>
 											</div>
 										</div>
@@ -162,24 +158,21 @@
 	<div class="container">
 		<legend class="border border-success ml-3 ">
 			<b>Your Question</b>
+			<!-- {{ usr_dat[1][usr_dat[0][usr_dat[-1]]['question_asked'][0]]}} -->
 			{% if usr_dat[-1] != "Guest" %}
-				{% for question in usr_dat[0][usr_dat[-1]]['question_asked'] %}
-					{% for question in usr_dat[1] %}
-						{% if usr_dat[1][question]['answered_by'] %}
-							<div class="card m-2">
-								<div class="card-header">
-									Answered
-								</div>
-								<div class="card-body">
-									<h5 class="card-title">{{ usr_dat[1][question]['question'] }}</h5>
-									<a href="{{ url_for('Question',hashid = question) }}" class="btn btn-primary text-center">Read Answer </a>
-									<p class="m-2">
-										<small>Branch : {{usr_dat[1][question]['branch'].upper()}}</small>
-									</p>
-								</div>
-							</div>
-						{% endif %}
-					{% endfor %}
+				{% for question_hash in usr_dat[0][usr_dat[-1]]['question_asked'] %}
+					<div class="card m-2">
+						<div class="card-header">
+							Answered
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">{{ usr_dat[1][question_hash]['question'] }}</h5>
+							<a href="{{ url_for('Question',hashid = question_hash) }}" class="btn btn-primary text-center">Read Answer </a>
+							<p class="m-2">
+								<small>Branch : {{usr_dat[1][question_hash]['branch'].upper()}}</small>
+							</p>
+						</div>
+					</div>
 				{% endfor %}
 			{% endif %}
 		</legend>

@@ -1,11 +1,1 @@
-{
-	"166cc7cc97901dd0456e65bb5cf393e6c1274685" : {
-		"branch" : "cse",
-		"asked_by" : "6c8d457eeeabb5a658c51654c0109b9226237a75",
-		"answered_by" : "6c8d457eeeabb5a658c51654c0109b9226237a75",
-		"qnstime" : "12 Jan 2021",
-		"anstime" : "9 Feb 2021",
-		"question" : "What is Pyhton?",
-		"answer" : "Python is a high level Programming language"
-	}
-}
+{"166cc7cc97901dd0456e65bb5cf393e6c1274685": {"branch": "cse", "asked_by": "6c8d457eeeabb5a658c51654c0109b9226237a75", "answered_by": "6c8d457eeeabb5a658c51654c0109b9226237a75", "qnstime": "12 Jan 2021", "anstime": "9 Feb 2021", "question": "What is Pyhton?", "answer": "Python is a high level Programming language"}, "50f0c6f3540b5d332cd5c01253ba3c1b210da88f": {"branch": "cse", "asked_by": "bb8b4662494bcd4561c8090d9d8a9a0a39971470", "answered_by": "", "qnstime": "2021-03-12 15:54:26.216446", "anstime": "", "question": "What is difference between programming and coding?", "answer": ""}}
