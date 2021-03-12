@@ -29,7 +29,6 @@ def index():
 		else:
 			question = request.form["question"]
 			return redirect(url_for('asknow',uid = question))
-
 	return render_template("index.html",usr_dat = user_data)
 
 app.add_template_global(lambda : redirect(url_for('index')), name='index')

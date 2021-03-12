@@ -14,16 +14,18 @@
 	<script type="text/javascript">
 		let btn = document.getElementById('btn');
 		{% if usr_dat[-1] == "Guest" %}
-								btn.innerHTML = "Login Now";
-								window.location.assign("{{url_for('login')}}");
+									btn.innerHTML = "Login Now";
+									function handler(argument) {
+										window.location.assign("{{url_for('login')}}");
+									}
 		{% else %}
-							function handler (argument) {
-							{% if usr_dat[0][usr_dat[-1]]['user_type'] == 'student' %}
-														window.location.assign("{{url_for('asknow',uid = usr_dat[-1])}}")
-							{% else %}
-														window.location.assign("{{url_for('index')}}");
-						{% endif %}
-								}
+								function handler (argument) {
+								{% if usr_dat[0][usr_dat[-1]]['user_type'] == 'student' %}
+																window.location.assign("{{url_for('asknow',uid = usr_dat[-1])}}")
+								{% else %}
+																window.location.assign("{{url_for('index')}}");
+							{% endif %}
+									}
 			{% endif %}
 	</script>
 </div>
