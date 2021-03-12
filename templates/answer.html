@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="container">
+		<div class="card m-2">
+			<div class="card-header">
+				Not Answered
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">{{ usr_dat[1][qid]['question'] }}</h5>
+				<textarea class="form-control" rows="5" placeholder="Answer is ..." required></textarea>
+				<br>
+				<a href="{{url_for('answer',qid =usr_dat[1][qid]['question'] )}}" class="btn btn-primary text-center">Submit</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

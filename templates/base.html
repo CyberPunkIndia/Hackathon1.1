@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Help Desk</title>
+		<link rel="icon" type="image/icon" href="https://img.icons8.com/pastel-glyph/2x/online-support.png">
+		<!-- CSS only -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	</head>
+	<body style="background-color: #f3ffaf">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							{% if usr_dat[-1] != "Guest" and usr_dat[0][usr_dat[-1]]['user_type'] == 'student' %}
+								<a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Home</a>
+								{% elif usr_dat[-1] == "Guest" %}
+								<a href="{{url_for('index')}}" class="nav-link active" aria-current="page">Home</a>
+							{% else %}
+								<a href="{{url_for('dashboard')}}" class="nav-link active" aria-current="page">Dashboard</a>
+							{% endif %}
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Branchwise
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<li><a class="dropdown-item" href="{{url_for('ComputerScience')}}">Computer Science</a></li>
+								<li><a class="dropdown-item" href="{{url_for('InformationTechnology')}}">Information Technology</a></li>
+								<li><a class="dropdown-item" href="{{url_for('CivilEngineering')}}">Civil Engineering</a></li>
+								<li><a class="dropdown-item" href="{{url_for('ElectricalEngineering')}}">Electrical Engineering</a></li>
+								<li><a class="dropdown-item" href="{{url_for('MechanicalEngineering')}}">Mechanical Engineering</a></li>
+								<li><a class="dropdown-item" href="{{url_for('Electronics')}}">Electronics and Communication Engineering</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<button class="btn btn-outline-success nav-link" id="profile_id" onclick = "profile_now()">Prabhat</button>
+				</div>
+			</div>
+		</nav>
+		{% block content%}{% endblock %}
+		<!-- JavaScript Bundle with Popper -->
+		<script type="text/javascript">
+			let user_prf = document.getElementById("profile_id");
+			{% if usr_dat[-1] == "Guest" %}
+													user_prf.innerHTML = "Guest";
+													function profile_now(argument) {
+													window.location.assign('../login');
+													}
+			{% else %}
+													user_prf.innerHTML = '@{{usr_dat[0][usr_dat[-1]]["user_name"]}}';
+													// let btn = document.getElementById("profile_id");
+													function profile_now(argument) {
+													document.getElementsByClassName("login_btn").method = "get";
+													window.location.assign('../Profile')
+													}
+			{% endif %}
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+	<script type="text/javascript">
+			let profile = document.getElementById("profile_id");
+			profile.innerHTML = "{{usr_dat[-1]}}";
+	</script>
+	<div class="container">
+		{% if  usr_dat[-1] !=  "Guest" and usr_dat[0][usr_dat[-1]]["user_type"]== "teacher" %}
+			{% for notif in usr_dat[0][usr_dat[-1]]['notification'] %}
+				<div class="card m-2">
+					<div class="card-header">
+						Not Answered
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{ usr_dat[1][notif]['question'] }}</h5>
+						<a href="{{url_for('answer',qid =usr_dat[1][notif]['question'] )}}" class="btn btn-primary text-center">Answer Now</a>
+					</div>
+				</div>
+			{% endfor %}
+			{% elif usr_dat[-1] !=  "Guest" and usr_dat[0][usr_dat[-1]]["user_type"]== "HOD" %}
+			{% for notif in usr_dat[0][usr_dat[-1]]['notification'] %}
+				<div class="card m-2">
+					<div class="card-header">
+						Not Answered
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{ usr_dat[1][notif]['question'] }}</h5>
+						<!-- Example single danger button -->
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+							Forward
+							</button>
+							<ul class="dropdown-menu">
+								{% for teacher in usr_dat[0] %}
+									{% if usr_dat[0][teacher]["user_type"] == "teacher" and usr_dat[0][teacher]["branch"] == usr_dat[0][usr_dat[-1]]["branch"] %}
+										<li><a class="dropdown-item" href="{{url_for('notify',qid = notif,usrid = teacher)}}">Action</a></li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% else %}
+			{% for question in usr_dat[1] %}
+				<div class="card">
+					<div class="card-header">
+						Not Answered
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{ usr_dat[1][question]['question'] }}</h5>
+						<a href="{{ url_for('Question',hashid = question) }}" class="btn btn-primary text-center">Read Answer </a>
+						<p class="m-2">
+							<small>Branch : {{usr_dat[1][question]['branch'].upper()}}</small>
+						</p>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+{% endblock %}

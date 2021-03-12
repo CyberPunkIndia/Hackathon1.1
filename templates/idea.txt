@@ -1,0 +1,37 @@
+->login
+->sighup
+->nav
+	->index
+	->question page
+	->profile page
+	->every answer page
+	->Branch Page
+
+
+
+user{
+	uid : has(user.name),
+	meta_data :{
+	user_type : teacher/student/hod,
+	user_name : name,
+	email: mail@mail.com,
+	branch : branch,
+	Zender : M/F,
+	mod : 5768909876,
+	password : somethin
+	question_asked {
+	"question hash" : {
+	"question" : asked about how to solve a problem,
+	"answer" : shut up
+	}
+	}
+	}
+}
+
+question{
+	hash : {
+	branch : cse,
+	question : why>?,
+	answer : noooooo
+	}
+}

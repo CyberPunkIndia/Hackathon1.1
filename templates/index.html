@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{%block content %}
+<div class="container">
+	<form method="post" >
+		<div class="input-group input-group-lg mt-5">
+			<input type="text" placeholder="Ask anything" class="form-control" id = 'question' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+		</div>
+		<div>
+			<center>
+			<button id = 'btn' onclick="handler()" class="btn btn-primary mt-3 submit_button" type="submit">Ask Now</button>
+			</center>
+		</div>
+	</form>
+	<script type="text/javascript">
+		let btn = document.getElementById('btn');
+		{% if usr_dat[-1] == "Guest" %}
+					btn.innerHTML = "Login Now";
+					btn.href ="{{url_for('login')}}";
+		{% else %}
+				function handler (argument) {
+				{% if usr_dat[0][usr_dat[-1]]['user_type'] == 'student' %}
+								btn.href = "{{url_for('asknow',uid = usr_dat[-1])}}"
+				{% else %}
+								btn.href ="{{url_for('index')}}";
+			{% endif %}
+					}
+			{% endif %}
+	</script>
+</div>
+<div class="container mt-5">
+	<legend class="border border-success ">
+		<b>Recently asked Questions</b>
+		{% for question in usr_dat[1] %}
+			{% if usr_dat[1][question]['answered_by'] %}
+				<div class="card m-2">
+					<div class="card-header">
+						Answered
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{ usr_dat[1][question]['question'] }}</h5>
+						<a href="{{ url_for('Question',hashid = question) }}" class="btn btn-primary text-center">Read Answer </a>
+						<p class="m-2">
+							<small>Branch : {{usr_dat[1][question]['branch'].upper()}}</small>
+						</p>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</legend>
+</div>
+{% endblock %}

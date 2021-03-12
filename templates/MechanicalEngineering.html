@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="container">
+		{% for data in usr_dat[1] %}
+			{% if usr_dat[1][data]['branch'] == 'mech' %}
+				<div class="card m-3">
+					<div class="card-body">
+						<h5 class="card-title">{{usr_dat[1][data]['question']}}</h5>
+						<a href="#" class="btn btn-primary">Read Answer</a>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+		
+	</div>
+{% endblock %}
