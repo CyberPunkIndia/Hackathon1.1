@@ -33,7 +33,7 @@
 							<ul class="dropdown-menu">
 								{% for teacher in usr_dat[0] %}
 									{% if usr_dat[0][teacher]["user_type"] == "teacher" and usr_dat[0][teacher]["branch"] == usr_dat[0][usr_dat[-1]]["branch"] %}
-										<li><a class="dropdown-item" href="{{url_for('notify',qid = notif,usrid = teacher)}}">Action</a></li>
+										<li><a class="dropdown-item" href="{{url_for('notify',qid = notif,usrid = teacher)}}">{{ usr_dat[0][teacher]["user_name"] }}</a></li>
 									{% endif %}
 								{% endfor %}
 							</ul>

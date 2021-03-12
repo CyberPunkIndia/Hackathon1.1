@@ -139,11 +139,14 @@ def asknow(uid):
 	for ids in user_data[0]:
 		if user_data[0][ids]['user_type'] == "HOD" and user_data[0][ids]['branch'] == user_data[0][user_data[-1]]["branch"]:
 			user_data[0][ids]['notification'].append(uid)
-			user_data[0][user_data[-1]]['question_asked'].append(question)
+			user_data[0][user_data[-1]]['question_asked'].append(uid)
 			break
-	file = open('json/questions.json','w')
-	json.dump(user_data[1],file)
-	file.close()
+	qfile = open('json/questions.json','w')
+	json.dump(user_data[1],qfile)
+	qfile.close()
+	ufile = open('json/user.json','w')
+	json.dump(user_data[0],ufile)
+	ufile.close() 
 	return redirect(url_for('profile'))
 
 @app.route("/Dashboard",methods =["GET","POST"])
@@ -153,9 +156,26 @@ def dashboard():
 		user_data[-1] = session['user']
 	return render_template("dashboard.html",usr_dat=user_data )
 
-@app.route("/answer/<qid>")
+@app.route("/answer/<qid>",methods = ["GET","POST"])
 def answer(qid):
 	global user_data
+	qid = hashlib.sha1(qid.encode()).hexdigest()
+	if request.method == 'POST':
+		answer = request.form['answer']
+		if answer == '':
+			return render_template('answer.html',qid = qid,usr_dat = user_data)
+		else:
+			answer_by = user_data[-1]
+			time = str(datetime.today())
+			user_data[1][qid]['answer'] = answer
+			user_data[1][qid]['answered_by'] = answer_by
+			user_data[1][qid]['anstime'] = time
+			user_data[0][user_data[-1]]['notification'].remove(qid)
+			ufile = open('json/user.json',"w")
+			qfile = open('json/questions.json',"w")
+			json.dump(user_data[0],ufile)
+			json.dump(user_data[1],qfile)
+			return redirect(url_for('dashboard'))
 	return render_template('answer.html',qid = qid,usr_dat = user_data)
 
 
@@ -211,21 +231,23 @@ def Question(hashid):
 	return render_template("QuestionView.html",qid = hashid,usr_dat = user_data)
 
 @app.route("/notify/<qid>/<usrid>")
-def notify():
+def notify(qid,usrid):
 	global user_data
 	if 'user' in session:
 		user_data[-1] = session['user']
 	user_data[0][usrid]['notification'].append(qid)
-	global user_json,question_json
-	user_json.close()
-	user_json = json.load(open("json/user.json","w"))
+	Hod = None
+	for every in user_data[0]:
+		if user_data[0][every]["user_type"] == "HOD" and user_data[0][every]['branch'] == user_data[0][usrid]['branch']:
+			user_data[0][every]['notification'].remove(qid)
+	user_json = open("json/user.json","w")
 	json.dump(user_data[0],user_json)
 	user_json.close()
-	user_data[0] = json.load("json/user.json")
-	return redirect(url_for("Dashboard"))
+	user_data[0] = json.load(open("json/user.json"))
+	return redirect(url_for("dashboard"))
 
 
 
 
 if __name__ == '__main__':
-	app.run(debug = False)
+	app.run(debug = True)

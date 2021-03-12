@@ -5,12 +5,12 @@
 			<div class="card-header">
 				Not Answered
 			</div>
-			<div class="card-body">
+			<form class="card-body" method="post" >
 				<h5 class="card-title">{{ usr_dat[1][qid]['question'] }}</h5>
-				<textarea class="form-control" rows="5" placeholder="Answer is ..." required></textarea>
+				<textarea class="form-control" name="answer" rows="5" placeholder="Answer is ..." required></textarea>
 				<br>
-				<a href="{{url_for('answer',qid =usr_dat[1][qid]['question'] )}}" class="btn btn-primary text-center">Submit</a>
-			</div>
+				<input href="{{url_for('answer',qid = usr_dat[1][qid]['question'])}}" class="btn btn-primary text-center" type="submit"></input>
+			</form>
 		</div>
 	</div>
 {% endblock %}
