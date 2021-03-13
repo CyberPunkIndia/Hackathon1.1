@@ -27,6 +27,7 @@
 						<h5 class="card-title">{{ usr_dat[1][notif]['question'] }}</h5>
 						<!-- Example single danger button -->
 						<div class="btn-group">
+							<a href="{{url_for('answer',qid =usr_dat[1][notif]['question'] )}}" class="btn btn-primary text-center ">Answer Now</a>
 							<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 							Forward
 							</button>
