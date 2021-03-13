@@ -99,7 +99,7 @@ def signup():
 		branch = request.form["branch"]
 		user_type = request.form['proffesion']
 		user_has = hashlib.sha1(email.encode()).hexdigest()
-		if branch == 'falsed' or user_type == 'falsed' or all([user_name,passwd,email,mob]):
+		if branch == 'falsed' or user_type == 'falsed' or not all([user_name,passwd,email,mob]):
 			return redirect(url_for('signup'))
 		user_data[0][user_has] = {
 		"user_type" : user_type,
