@@ -161,18 +161,20 @@
 			<!-- {{ usr_dat[1][usr_dat[0][usr_dat[-1]]['question_asked'][0]]}} -->
 			{% if usr_dat[-1] != "Guest" %}
 				{% for question_hash in usr_dat[0][usr_dat[-1]]['question_asked'] %}
-					<div class="card m-2">
-						<div class="card-header">
-							Answered
+					{% if usr_dat[1][question_hash]['answered_by'] %}
+						<div class="card m-2">
+							<div class="card-header">
+								Answered
+							</div>
+							<div class="card-body">
+								<h5 class="card-title">{{ usr_dat[1][question_hash]['question'] }}</h5>
+								<a href="{{ url_for('Question',hashid = question_hash) }}" class="btn btn-primary text-center">Read Answer </a>
+								<p class="m-2">
+									<small>Branch : {{usr_dat[1][question_hash]['branch'].upper()}}</small>
+								</p>
+							</div>
 						</div>
-						<div class="card-body">
-							<h5 class="card-title">{{ usr_dat[1][question_hash]['question'] }}</h5>
-							<a href="{{ url_for('Question',hashid = question_hash) }}" class="btn btn-primary text-center">Read Answer </a>
-							<p class="m-2">
-								<small>Branch : {{usr_dat[1][question_hash]['branch'].upper()}}</small>
-							</p>
-						</div>
-					</div>
+					{% endif %}
 				{% endfor %}
 			{% endif %}
 		</legend>
