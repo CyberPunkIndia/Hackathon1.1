@@ -42,6 +42,5 @@ Now webisite is up and running at [HELP DESK](https://helpdeskpk.herokuapp.com)
       * `source env/bin/activate`
       * `python3 app.py`
   * After that visit  [here](http://127.0.0.1:5000) or http://127.0.0.1:5000
-      * `python3 app.py'
  
  For code got to [Master Branch](https://github.com/CyberPunkIndia/Hackathon1.1/tree/master)
